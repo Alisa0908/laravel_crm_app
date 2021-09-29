@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CrmController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/crms/zipcode', [App\Http\Controllers\CrmController::class, 'zipcode'])->name('crms.zipcode');
+
+Route::resource('crms', CrmController::class);
