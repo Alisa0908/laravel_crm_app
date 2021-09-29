@@ -27,7 +27,7 @@ class CrmFactory extends Factory
             'name' => $faker->name(),
             'email' => $faker->unique()->safeEmail(),
             'crm' => $faker->postcode(),
-            'address' => $faker->streetAddress(),
+            'address' => $faker->prefecture() . $faker->city() . $faker->streetAddress(),
             'phone' => $faker->phoneNumber()
         ];
     }

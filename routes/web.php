@@ -17,5 +17,6 @@ use App\Http\Controllers\CrmController;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/crms/zipcode', [App\Http\Controllers\CrmController::class, 'zipcode'])->name('crms.zipcode');
 
 Route::resource('crms', CrmController::class);

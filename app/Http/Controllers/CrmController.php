@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Crm;
+use GuzzleHttp\Client;
+use App\Http\Requests\CrmRequest;
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\TryCatch;
 
 class CrmController extends Controller
 {
@@ -14,8 +17,8 @@ class CrmController extends Controller
      */
     public function index()
     {
-        
-        return view('crms.index');
+        $crms = Crm::all();
+        return view('crms.index', compact('crms'));
     }
 
     /**
@@ -23,9 +26,25 @@ class CrmController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('crms.create');
+        $crm = $request->crm;
+
+        $method = 'GET';
+        $url = 'https://zipcloud.ibsnet.co.jp/api/search?zipcode=' . $crm;
+        $options = [];
+
+        $client = new Client();
+        try {
+            $response = $client->request($method, $url, $options);
+            $body = $response->getBody();
+            $zipcode = json_decode($body, false);
+            $address = $zipcode->results[0]->address1 . $zipcode->results[0]->address2 . $zipcode->results[0]->address3;
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            return back();
+        }
+
+        return view('crms.create')->with(compact('address', 'crm'));
     }
 
     /**
@@ -34,9 +53,15 @@ class CrmController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CrmRequest $request)
     {
-        
+        $crm = new Crm();
+
+        $crm->fill($request->all());
+
+        $crm->save();
+
+        return redirect()->route('crms.index');
     }
 
     /**
@@ -47,7 +72,7 @@ class CrmController extends Controller
      */
     public function show(Crm $crm)
     {
-        return view('crms.show');
+        return view('crms.show', compact('crm'));
     }
 
     /**
@@ -58,7 +83,7 @@ class CrmController extends Controller
      */
     public function edit(Crm $crm)
     {
-        return view('crms.edit');
+        return view('crms.edit', compact('crm'));
     }
 
     /**
@@ -68,9 +93,13 @@ class CrmController extends Controller
      * @param  \App\Models\Crm  $crm
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Crm $crm)
+    public function update(CrmRequest $request, Crm $crm)
     {
+        $crm->fill($request->all());
+        
+        $crm->save();
 
+        return redirect()->route('crms.index');
     }
 
     /**
@@ -81,6 +110,13 @@ class CrmController extends Controller
      */
     public function destroy(Crm $crm)
     {
+        $crm->delete();
+        return redirect()->route('crms.index');
+    }
 
+
+    public function zipcode()
+    {
+        return view('crms.zipcode');
     }
 }

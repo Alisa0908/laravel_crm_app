@@ -4,8 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Crm extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name', 
+        'email',
+        'crm',
+        'address',
+        'phone',
+    ];
 }
