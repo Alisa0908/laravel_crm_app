@@ -18,7 +18,7 @@
             <td><a href="{{ route('crms.show', $crm) }}">{{ $crm->id }}</a></td>
             <td>{{ $crm->name }}</td>
             <td>{{ $crm->email }}</td>
-            <td>{{ $crm->crm }}</td>
+            <td>{{ $crm->zipcode }}</td>
             <td>{{ $crm->address }}</td>
             <td>{{ $crm->phone }}</td>
         </tr>

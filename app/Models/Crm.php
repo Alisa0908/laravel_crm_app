@@ -13,7 +13,7 @@ class Crm extends Model
     protected $fillable = [
         'name', 
         'email',
-        'crm',
+        'zipcode',
         'address',
         'phone',
     ];

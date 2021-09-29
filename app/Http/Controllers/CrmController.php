@@ -28,23 +28,23 @@ class CrmController extends Controller
      */
     public function create(Request $request)
     {
-        $crm = $request->crm;
+        $zipcode = $request->zipcode;
 
         $method = 'GET';
-        $url = 'https://zipcloud.ibsnet.co.jp/api/search?zipcode=' . $crm;
+        $url = 'https://zipcloud.ibsnet.co.jp/api/search?zipcode=' . $zipcode;
         $options = [];
 
         $client = new Client();
         try {
             $response = $client->request($method, $url, $options);
             $body = $response->getBody();
-            $zipcode = json_decode($body, false);
-            $address = $zipcode->results[0]->address1 . $zipcode->results[0]->address2 . $zipcode->results[0]->address3;
+            $code = json_decode($body, false);
+            $address = $code->results[0]->address1 . $code->results[0]->address2 . $code->results[0]->address3;
         } catch (\GuzzleHttp\Exception\ClientException $e) {
             return back();
         }
 
-        return view('crms.create')->with(compact('address', 'crm'));
+        return view('crms.create')->with(compact('address', 'zipcode'));
     }
 
     /**

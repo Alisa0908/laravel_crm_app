@@ -27,8 +27,8 @@
             <input type="text" name="email" id="email" value="{{ old('email') }}">
         </div>
         <div>
-            <label for="crm">郵便番号</label>
-            <input type="text" name="crm" id="crm" value="{{ old('crm', $crm) }}">
+            <label for="zipcode">郵便番号</label>
+            <input type="text" name="zipcode" id="zipcode" value="{{ old('zipcode', $zipcode) }}">
         </div>
         <div>
             <label for="address">住所</label>
@@ -39,7 +39,6 @@
             <input type="text" name="phone" id="phone" value="{{ old('phone') }}">
         </div>
         <input type="submit" value="登録">
-        {{-- <button type="submit" onclick="location.href='{{ route('crms.update', $crm) }}'">更新</button> --}}
     </form>
     <button type="button" onclick="location.href='{{ route('crms.zipcode') }}'">郵便番号検索に戻る</button>
 @endsection

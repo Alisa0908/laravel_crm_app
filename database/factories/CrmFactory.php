@@ -26,7 +26,7 @@ class CrmFactory extends Factory
         return [
             'name' => $faker->name(),
             'email' => $faker->unique()->safeEmail(),
-            'crm' => $faker->postcode(),
+            'zipcode' => $faker->postcode(),
             'address' => $faker->prefecture() . $faker->city() . $faker->streetAddress(),
             'phone' => $faker->phoneNumber()
         ];

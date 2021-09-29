@@ -28,8 +28,8 @@
             <input type="text" name="email" id="email" value="{{ old('email', $crm->email) }}">
         </div>
         <div>
-            <label for="crm">郵便番号</label>
-            <input type="text" name="crm" id="crm" value="{{ old('crm', $crm->crm) }}">
+            <label for="zipcode">郵便番号</label>
+            <input type="text" name="zipcode" id="zipcode" value="{{ old('zipcode', $crm->zipcode) }}">
         </div>
         <div>
             <label for="address">住所</label>
@@ -41,7 +41,6 @@
             <input type="text" name="phone" id="phone" value="{{ old('phone', $crm->phone) }}">
         </div>
         <input type="submit" value="更新">
-        {{-- <button type="submit" onclick="location.href='{{ route('crms.update', $crm) }}'">更新</button> --}}
     </form>
     <button type="button" onclick="location.href='{{ route('crms.show', $crm) }}'">戻る</button>
 @endsection

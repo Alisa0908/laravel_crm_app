@@ -17,7 +17,7 @@
             <td>{{ $crm->id }}</td>
             <td>{{ $crm->name }}</td>
             <td>{{ $crm->email }}</td>
-            <td>{{ $crm->crm }}</td>
+            <td>{{ $crm->zipcode }}</td>
             <td>{{ $crm->address }}</td>
             <td>{{ $crm->phone }}</td>
         </tr>
